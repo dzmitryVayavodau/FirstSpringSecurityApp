@@ -1,13 +1,14 @@
 package com.voevodov.springcoure.FirstSecurityApp.config;
 
-import com.voevodov.springcoure.FirstSecurityApp.security.AuthProviderImpl;
-
+import com.voevodov.springcoure.FirstSecurityApp.services.PersonDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -18,11 +19,11 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SecurityConfig {
 
-    private final AuthProviderImpl authProvider;
+    private final PersonDetailsService personDetailsService;
 
     @Autowired
-    public SecurityConfig(AuthProviderImpl authProvider) {
-        this.authProvider = authProvider;
+    public SecurityConfig(PersonDetailsService personDetailsService) {
+        this.personDetailsService = personDetailsService;
     }
 
     @Bean
@@ -32,13 +33,26 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(withDefaults())
+                .userDetailsService(personDetailsService)
                 .build();
         }
 
-
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        return http
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .anyRequest().authenticated()
+//                )
+//                .formLogin(form -> form.loginPage("/login").permitAll()) // Добавлена настройка formLogin
+//                .userDetailsService(personDetailsService) // Указываем UserDetailsService
+//                .build();
+//    }
 
     @Bean
-    public AuthenticationManager authenticationManager() {
-        return new ProviderManager(List.of(authProvider));
+    public PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
     }
+
+
+
 }
