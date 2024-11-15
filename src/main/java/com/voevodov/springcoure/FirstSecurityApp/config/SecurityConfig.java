@@ -12,9 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
-import java.util.List;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 public class SecurityConfig {
@@ -28,31 +26,26 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         return http
-                .authorizeHttpRequests(authorize -> authorize
+                .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers("/auth/login", "/error", "/auth/registration").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(withDefaults())
+                .formLogin(form -> form
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/process_login")
+                        .defaultSuccessUrl("/hello", true)
+                        .failureUrl("/auth/login?error=true"))
                 .userDetailsService(personDetailsService)
                 .build();
         }
 
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        return http
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .anyRequest().authenticated()
-//                )
-//                .formLogin(form -> form.loginPage("/login").permitAll()) // Добавлена настройка formLogin
-//                .userDetailsService(personDetailsService) // Указываем UserDetailsService
-//                .build();
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
-
 
 
 }

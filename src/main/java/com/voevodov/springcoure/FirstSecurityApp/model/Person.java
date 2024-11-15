@@ -17,7 +17,7 @@ public class Person {
     @NotEmpty(message = "Name shouldn't be empty")
     @Size(min = 2, max = 100, message = "Name should be more than 1 and less than 101 characters")
     @Column(name = "username")
-    private String username;
+    private String userName;
 
     @Min(value = 1900, message = "Year of birth should be more 1900")
     @Column(name = "year_of_birth")
@@ -26,13 +26,8 @@ public class Person {
     @Column(name = "password")
     private String password;
 
+
     public Person() {
-    }
-
-    public Person(String userName, int yearOfBirth) {
-        this.username = userName;
-        this.yearOfBirth = yearOfBirth;
-
     }
 
     public int getId() {
@@ -44,11 +39,11 @@ public class Person {
     }
 
     public @NotEmpty(message = "Name shouldn't be empty") @Size(min = 2, max = 100, message = "Name should be more than 1 and less than 101 characters") String getUserName() {
-        return username;
+        return userName;
     }
 
     public void setUserName(@NotEmpty(message = "Name shouldn't be empty") @Size(min = 2, max = 100, message = "Name should be more than 1 and less than 101 characters") String userName) {
-        this.username = userName;
+        this.userName = userName;
     }
 
     @Min(value = 1900, message = "Year of birth should be more 1900")
@@ -72,7 +67,7 @@ public class Person {
     public String toString() {
         return "Person{" +
                 "id=" + id +
-                ", userName='" + username + '\'' +
+                ", userName='" + userName + '\'' +
                 ", yearOfBirth=" + yearOfBirth +
                 ", password='" + password + '\'' +
                 '}';

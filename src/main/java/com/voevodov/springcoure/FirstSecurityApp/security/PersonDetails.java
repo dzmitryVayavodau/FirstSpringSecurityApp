@@ -5,7 +5,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
 public class PersonDetails implements UserDetails {
 
@@ -25,7 +24,6 @@ public class PersonDetails implements UserDetails {
         return this.person.getPassword();
     }
 
-    @Override
     public String getUsername() {
         return this.person.getUserName();
     }
