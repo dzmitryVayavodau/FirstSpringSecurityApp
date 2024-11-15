@@ -29,5 +29,16 @@ public class HelloController {
         return "hello";
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "Home";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+
 
 }
