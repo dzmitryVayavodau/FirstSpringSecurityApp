@@ -6,20 +6,19 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "person")
+@Table(name = "Person")
 public class Person {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotEmpty(message = "Name shouldn't be empty")
-    @Size(min = 2, max = 100, message = "Name should be more than 1 and less than 101 characters")
+    @NotEmpty(message = "The name should not be blank")
+    @Size(min = 2, max = 100, message = "The name should be between 2 and 100 characters long")
     @Column(name = "username")
-    private String userName;
+    private String username;
 
-    @Min(value = 1900, message = "Year of birth should be more 1900")
+    @Min(value = 1900, message = "Year of birth must be greater than 1900")
     @Column(name = "year_of_birth")
     private int yearOfBirth;
 
@@ -27,7 +26,14 @@ public class Person {
     private String password;
 
 
+
+
     public Person() {
+    }
+
+    public Person(String username, int yearOfBirth) {
+        this.username = username;
+        this.yearOfBirth = yearOfBirth;
     }
 
     public int getId() {
@@ -38,20 +44,19 @@ public class Person {
         this.id = id;
     }
 
-    public @NotEmpty(message = "Name shouldn't be empty") @Size(min = 2, max = 100, message = "Name should be more than 1 and less than 101 characters") String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(@NotEmpty(message = "Name shouldn't be empty") @Size(min = 2, max = 100, message = "Name should be more than 1 and less than 101 characters") String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    @Min(value = 1900, message = "Year of birth should be more 1900")
     public int getYearOfBirth() {
         return yearOfBirth;
     }
 
-    public void setYearOfBirth(@Min(value = 1900, message = "Year of birth should be more 1900") int yearOfBirth) {
+    public void setYearOfBirth(int yearOfBirth) {
         this.yearOfBirth = yearOfBirth;
     }
 
@@ -63,11 +68,13 @@ public class Person {
         this.password = password;
     }
 
+
+
     @Override
     public String toString() {
         return "Person{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 ", yearOfBirth=" + yearOfBirth +
                 ", password='" + password + '\'' +
                 '}';

@@ -1,6 +1,7 @@
 package com.voevodov.springcoure.FirstSecurityApp.controllers;
 
 import com.voevodov.springcoure.FirstSecurityApp.security.PersonDetails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,9 +22,12 @@ public class HelloController {
 
     @GetMapping("/showUserInfo")
     public String showUserInfo() {
-         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-         PersonDetails personDetails = (PersonDetails)authentication.getPrincipal();
-         System.out.println(personDetails.getPerson());
-         return "hello";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        System.out.println(personDetails.getPerson());
+
+        return "hello";
     }
+
+
 }

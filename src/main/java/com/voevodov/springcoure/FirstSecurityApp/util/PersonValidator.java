@@ -29,7 +29,7 @@ public class PersonValidator implements Validator {
         System.out.println("person: " + person);
 
         try {
-            personDetailsService.loadUserByUsername(person.getUserName());
+            personDetailsService.loadUserByUsername(person.getUsername());
         }
         catch (UsernameNotFoundException ignored) {
             return;
