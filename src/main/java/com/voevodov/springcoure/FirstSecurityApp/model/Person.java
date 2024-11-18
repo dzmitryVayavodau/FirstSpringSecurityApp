@@ -86,6 +86,7 @@ public class Person {
                 ", username='" + username + '\'' +
                 ", yearOfBirth=" + yearOfBirth +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }
